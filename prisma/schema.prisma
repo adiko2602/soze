@@ -1,0 +1,105 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum userTypes {
+  ADMIN
+  USER
+  WORKER
+}
+
+model users {
+  id        Int        @id @default(autoincrement())
+  email     String
+  password  String
+  userTypes userTypes  @default(USER)
+  personals personals?
+  reports   reports[]
+}
+
+model personals {
+  id        Int      @id @default(autoincrement())
+  firstName String
+  lastName  String
+  pesel     String
+  users     users?   @relation(fields: [usersId], references: [id], onDelete: Cascade)
+  usersId   Int?     @unique
+  reports   reports?
+}
+
+model reports {
+  id          Int       @id @default(autoincrement())
+  reporter    users     @relation(fields: [reporterId], references: [id])
+  reporterId  Int
+  personals   personals @relation(fields: [personalsId], references: [id])
+  personalsId Int       @unique
+  addresses   addresses @relation(fields: [addressesId], references: [id])
+  addressesId Int       @unique
+  diseases    diseases  @relation(fields: [diseasesId], references: [id])
+  diseasesId  Int
+}
+
+model addresses {
+  id      Int      @id @default(autoincrement())
+  terc    terc     @relation(fields: [tercId], references: [id])
+  tercId  Int
+  simc    simc     @relation(fields: [simcId], references: [id])
+  simcId  Int
+  ulic    ulic     @relation(fields: [ulicId], references: [id])
+  ulicId  Int
+  reports reports?
+}
+
+model diseases {
+  id           Int       @id @default(autoincrement())
+  code         String
+  name         String
+  codeChildren String
+  nameChildren String
+  desc1        String
+  desc2        String
+  reports      reports[]
+}
+
+model terc {
+  id        Int         @id @default(autoincrement())
+  woj       Int
+  pow       Int?
+  gmi       Int?
+  name      String
+  addresses addresses[]
+}
+
+model simc {
+  id        Int         @id @default(autoincrement())
+  woj       Int
+  pow       Int
+  gmi       Int
+  sym       Int
+  name      String
+  addresses addresses[]
+}
+
+model ulic {
+  id             Int         @id @default(autoincrement())
+  woj            Int
+  pow            Int
+  gmi            Int
+  sym            Int
+  symUl          Int
+  characteristic String
+  name1          String
+  name2          String
+  addresses      addresses[]
+}
