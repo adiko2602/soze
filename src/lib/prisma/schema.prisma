@@ -21,7 +21,7 @@ enum userTypes {
 
 model users {
   id        Int        @id @default(autoincrement())
-  email     String
+  email     String     @unique
   password  String
   userTypes userTypes  @default(USER)
   personals personals?
@@ -58,6 +58,8 @@ model addresses {
   simcId  Int
   ulic    ulic     @relation(fields: [ulicId], references: [id])
   ulicId  Int
+  num     String
+  mie     String?
   reports reports?
 }
 
