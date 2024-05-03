@@ -2,6 +2,7 @@
 
 # prisma
 /prisma/migrations
+/src/lib/prisma/migrations
 
 # dependencies
 /node_modules
