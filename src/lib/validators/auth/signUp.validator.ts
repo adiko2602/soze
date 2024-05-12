@@ -1,6 +1,6 @@
 import * as z from "zod";
 
-export const CreateUserValidation = z.object({
+export const SignUpValidation = z.object({
   email: z
     .string({ required_error: "Email jest wymagany" })
     .min(1, { message: "Email nie może być pusty" })

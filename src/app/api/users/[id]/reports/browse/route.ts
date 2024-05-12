@@ -1,5 +1,6 @@
 import { ErrorApiResponse, SuccessApiResponse } from "@/lib/api/ApiResponse";
 import prisma from "@/lib/prisma/prismaClient";
+import { browseReportsInclude } from "@/lib/prisma/types";
 import { NextRequest } from "next/server";
 
 export async function GET(
@@ -8,22 +9,20 @@ export async function GET(
 ) {
   try {
     const id = parseInt(params.id);
-    const user = await prisma.users.findFirst({
+
+    const reports = await prisma.reports.findMany({
       where: {
-        id: id,
+        reporterId: id,
       },
-      select: {
-        email: true,
-        id: true,
-        userTypes: true,
-        personals: true,
-      },
+      include: browseReportsInclude,
     });
 
-    return SuccessApiResponse.send("Użytkownik znaleziony", 200, user);
+    if (!reports) return ErrorApiResponse.send("Nie znaleziono raportów");
+
+    return SuccessApiResponse.send("Raporty znalezione", 200, reports);
   } catch (err) {
     console.log(err);
-    return ErrorApiResponse.send("Błąd pobierania użytkownika");
+    return ErrorApiResponse.send("Błąd pobierania raportów");
   } finally {
     await prisma.$disconnect();
   }

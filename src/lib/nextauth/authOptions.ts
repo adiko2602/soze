@@ -4,6 +4,7 @@ import prisma from "../prisma/prismaClient";
 import * as bcrypt from "bcrypt";
 
 export const authOptions: NextAuthOptions = {
+  secret: process.env.AUTH_SECRET,
   session: {
     strategy: "jwt",
   },
@@ -47,14 +48,16 @@ export const authOptions: NextAuthOptions = {
           if (err instanceof Error) {
             throw new Error(err.message);
           }
+        } finally {
+          await prisma.$disconnect();
         }
         return null;
       },
     }),
   ],
   pages: {
-    signIn: "/sign-in",
-    error: "/sign-in",
+    signIn: "/auth/signin",
+    error: "/auth/signin",
   },
 
   callbacks: {

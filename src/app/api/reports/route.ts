@@ -3,6 +3,8 @@ import prisma from "@/lib/prisma/prismaClient";
 import { TCreateReport } from "@/lib/validators";
 import { NextRequest } from "next/server";
 import { CreateReportsValidation } from "@/lib/validators/reports/createReports.validation";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/lib/nextauth/authOptions";
 
 export async function GET(req: NextRequest) {
   try {
@@ -18,7 +20,6 @@ export async function GET(req: NextRequest) {
           include: {
             terc: true,
             simc: true,
-            ulic: true,
           },
         },
         diseases: true,
@@ -29,6 +30,8 @@ export async function GET(req: NextRequest) {
   } catch (err) {
     console.log(err);
     return ErrorApiResponse.send("Błąd pobierania raportów");
+  } finally {
+    await prisma.$disconnect();
   }
 }
 
@@ -36,6 +39,10 @@ export async function POST(req: NextRequest) {
   try {
     const body: TCreateReport = await req.json();
     const result = await CreateReportsValidation.safeParseAsync(body);
+
+    const reporter = await getServerSession(authOptions);
+    if (!reporter)
+      return ErrorApiResponse.send("Musisz się zalogować aby utworzyć raport");
 
     if (!result.success) {
       return ErrorApiResponse.send("Błąd otrzymanych danych");
@@ -61,14 +68,6 @@ export async function POST(req: NextRequest) {
 
     if (!simc) return ErrorApiResponse.send("Nie znaleziono simc");
 
-    const ulic = await prisma.ulic.findFirst({
-      where: {
-        symUl: body.symUl,
-      },
-    });
-
-    if (!ulic) return ErrorApiResponse.send("Nie znaleziono ulic");
-
     await prisma.reports.create({
       data: {
         personals: {
@@ -82,9 +81,6 @@ export async function POST(req: NextRequest) {
           create: {
             tercId: terc.id,
             simcId: simc.id,
-            ulicId: ulic.id,
-            num: body.num,
-            mie: body.mie,
           },
         },
         diseases: {
@@ -94,7 +90,7 @@ export async function POST(req: NextRequest) {
         },
         reporter: {
           connect: {
-            id: 1,
+            id: reporter.user.id,
           },
         },
       },
@@ -104,5 +100,7 @@ export async function POST(req: NextRequest) {
   } catch (err) {
     console.log(err);
     return ErrorApiResponse.send("Błąd tworzenia raportu");
+  } finally {
+    await prisma.$disconnect();
   }
 }

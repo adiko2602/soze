@@ -5,25 +5,6 @@ import * as bcrypt from "bcrypt";
 import { TSignUp } from "@/lib/validators";
 import { SignUpValidation } from "@/lib/validators/auth/signUp.validator";
 
-export async function GET(req: NextRequest) {
-  try {
-    const users = await prisma.users.findMany({
-      select: {
-        email: true,
-        id: true,
-        userTypes: true,
-        personals: true,
-      },
-    });
-
-    return SuccessApiResponse.send("Użytkownicy znalezieni", 200, users);
-  } catch (err) {
-    console.log(err);
-    return ErrorApiResponse.send("Błąd pobierania użytkowników");
-  } finally {
-    await prisma.$disconnect();
-  }
-}
 export async function POST(req: NextRequest) {
   try {
     const body: TSignUp = await req.json();

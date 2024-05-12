@@ -46,10 +46,7 @@ export const CreateReportsValidation = z.object({
     }),
   woj: z.number({ required_error: "Województwo jest wymagane" }),
   pow: z.number({ required_error: "Powiat jest wymagany" }),
-  gmi: z.number().optional(),
+  gmi: z.number({ required_error: "Gmina jest wymagana" }),
   sym: z.number({ required_error: "Miasto jest wymagane" }),
-  symUl: z.number().optional(),
-  num: z.string({ required_error: "Numer domu jest wymagany" }),
-  mie: z.string().optional(),
   disease: z.number({ required_error: "Choroba jest wymagana" }),
 });
