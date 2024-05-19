@@ -1,34 +1,21 @@
 "use client";
 
-import { ApiRequest } from "@/lib/api/ApiRequest";
-import { TBrowseReportsInclude } from "@/lib/prisma";
-import { useQuery } from "@tanstack/react-query";
-import { useSession } from "next-auth/react";
 import React from "react";
 import {
   Table,
   TableBody,
   TableCaption,
   TableCell,
-  TableFooter,
   TableHead,
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import { useBrowseReports } from "@/lib/hooks/report/browseReports/useBrowseReportsQuery";
 
 function BrowseReportsCard() {
-  const { data: session } = useSession();
-  const { data: reports } = useQuery({
-    queryFn: async () => {
-      const data = ApiRequest.getData<TBrowseReportsInclude[]>(
-        await ApiRequest.get(`/api/users/${session?.user.id}/reports/browse`)
-      );
-      console.log(data.body);
-      return data.body;
-    },
-    queryKey: [`/api/users/${session?.user.id}/reports/browse`],
-  });
+  const { reports } = useBrowseReports();
+
   return (
     <Card>
       <CardHeader>Raporty utworzone przez Ciebie</CardHeader>
@@ -45,7 +32,7 @@ function BrowseReportsCard() {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {reports?.map((report) => (
+            {reports.data?.map((report) => (
               <TableRow key={report.id}>
                 <TableCell className="font-medium">
                   {report.personals.firstName} {report.personals.lastName}

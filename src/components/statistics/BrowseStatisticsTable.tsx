@@ -1,6 +1,6 @@
 import { TBrowseStatisticsInclude } from "@/lib/prisma";
 import React from "react";
-import { Card, CardContent, CardHeader } from "../ui/card";
+import { Card, CardContent } from "../ui/card";
 import {
   Table,
   TableBody,
@@ -10,21 +10,14 @@ import {
   TableHeader,
   TableRow,
 } from "../ui/table";
+import { useBrowseStatisticTable } from "@/lib/hooks/statistic/useBrowseStatisticTable";
 
-function CountStatistics(props: { statistics: TBrowseStatisticsInclude[] }) {
-  const diseaseCount: { [key: string]: number } = {};
+function BrowseStatisticsTable(props: {
+  statistics: TBrowseStatisticsInclude[];
+}) {
+  const { statistics } = props;
+  const { count } = useBrowseStatisticTable();
 
-  props.statistics.forEach((item) => {
-    const {
-      diseases: { nameChildren },
-    } = item;
-    if (!diseaseCount[nameChildren]) {
-      diseaseCount[nameChildren] = 0;
-    }
-    diseaseCount[nameChildren]++;
-  });
-
-  console.log("NameChildren Counts:", diseaseCount);
   return (
     <Card>
       <CardContent>
@@ -37,7 +30,7 @@ function CountStatistics(props: { statistics: TBrowseStatisticsInclude[] }) {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {Object.entries(diseaseCount)?.map((entry) => (
+            {count(statistics).map((entry) => (
               <TableRow key={entry[0]}>
                 <TableCell className="font-medium">{entry[0]}</TableCell>
                 <TableCell>{entry[1]}</TableCell>
@@ -50,4 +43,4 @@ function CountStatistics(props: { statistics: TBrowseStatisticsInclude[] }) {
   );
 }
 
-export default CountStatistics;
+export default BrowseStatisticsTable;

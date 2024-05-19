@@ -1,4 +1,4 @@
-import BrowseReportsCard from "@/components/reports/BrowseReportsCard";
+import BrowseReportsCard from "@/components/reports/browsereports/BrowseReportsCard";
 import React from "react";
 
 function BrowseReportsPage() {

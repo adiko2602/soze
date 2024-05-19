@@ -1,4 +1,4 @@
-import SignUpCard from "@/components/auth/SignUpCard";
+import SignUpCard from "@/components/auth/signup/SignUpCard";
 import React from "react";
 
 function SignUpPage() {

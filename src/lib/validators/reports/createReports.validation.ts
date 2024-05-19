@@ -1,4 +1,5 @@
 import * as z from "zod";
+import { CreateReportAddressValidation } from "../addresses/createReportAddress.validator";
 
 export const CreateReportsValidation = z.object({
   firstName: z

@@ -1,8 +1,12 @@
 import { ErrorApiResponse, SuccessApiResponse } from "@/lib/api/ApiResponse";
+import { authOptions } from "@/lib/nextauth/authOptions";
 import prisma from "@/lib/prisma/prismaClient";
-import { NextRequest } from "next/server";
+import { getServerSession } from "next-auth";
 
-export async function GET(req: NextRequest) {
+export async function GET() {
+  const session = await getServerSession(authOptions);
+  if (!session?.user.userTypes)
+    return ErrorApiResponse.send("Musisz się zalogować");
   try {
     const diseases = await prisma.diseases.findMany();
     if (!diseases) return ErrorApiResponse.send("Nie znaleziono chorób");

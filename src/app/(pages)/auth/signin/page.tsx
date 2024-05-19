@@ -1,4 +1,4 @@
-import SignInCard from "@/components/auth/SignInCard";
+import SignInCard from "@/components/auth/signin/SignInCard";
 import React from "react";
 
 function SignInPage() {

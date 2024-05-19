@@ -1,9 +1,5 @@
 "use client";
 
-import { ApiRequest } from "@/lib/api/ApiRequest";
-import { TUsersReportsInclude } from "@/lib/prisma";
-import { useQuery } from "@tanstack/react-query";
-import { useSession } from "next-auth/react";
 import React from "react";
 import {
   Table,
@@ -15,19 +11,10 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import { useUserReportQuery } from "@/lib/hooks/user/report/useUserReportQuery";
 
 function UsersReportsCard() {
-  const { data: session } = useSession();
-  const { data: reports } = useQuery({
-    queryFn: async () => {
-      const data = ApiRequest.getData<TUsersReportsInclude[]>(
-        await ApiRequest.get(`/api/users/${session?.user.id}/reports`)
-      );
-      console.log(data.body);
-      return data.body;
-    },
-    queryKey: [`/api/users/${session?.user.id}/reports`],
-  });
+  const { reports } = useUserReportQuery();
   return (
     <Card>
       <CardHeader>Twoje raporty</CardHeader>
@@ -45,7 +32,7 @@ function UsersReportsCard() {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {reports?.map((report) => (
+            {reports.data?.map((report) => (
               <TableRow key={report.id}>
                 <TableCell className="font-medium">
                   {report.personals.firstName} {report.personals.lastName}
