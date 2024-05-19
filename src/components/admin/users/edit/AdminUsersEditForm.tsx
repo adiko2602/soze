@@ -26,9 +26,8 @@ function AdminUsersEditForm(props: {
   defaultUser: TAdminUserSelect;
   id: string;
 }) {
-  const { adminUserEditFormFunction } = useAdminUserForm();
+  const { adminUserEditForm } = useAdminUserForm(props.defaultUser);
   const { adminUserEdit } = useAdminUserMutation();
-  const adminUserEditForm = adminUserEditFormFunction(props.defaultUser);
 
   const handleSubmit = (values: TAdminUserEdit) => {
     adminUserEdit.mutate({ values: values, id: props.id });

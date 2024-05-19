@@ -6,19 +6,18 @@ import { AdminUserEditValidation } from "@/lib/validators/admin/adminUserEdit.va
 import { TAdminUserSelect } from "@/lib/prisma";
 import { TAdminUserEdit } from "@/lib/validators";
 
-export function useAdminUserForm() {
-  const adminUserEditFormFunction = (defaultUser: TAdminUserSelect) =>
-    useForm<TAdminUserEdit>({
-      resolver: zodResolver(AdminUserEditValidation),
-      mode: "onBlur",
-      defaultValues: {
-        email: defaultUser.email,
-        userType: defaultUser.userTypes,
-        firstName: defaultUser.personals?.firstName,
-        lastName: defaultUser.personals?.lastName,
-        pesel: defaultUser.personals?.pesel,
-      },
-    });
+export function useAdminUserForm(defaultUser: TAdminUserSelect) {
+  const adminUserEditForm = useForm<TAdminUserEdit>({
+    resolver: zodResolver(AdminUserEditValidation),
+    mode: "onBlur",
+    defaultValues: {
+      email: defaultUser.email,
+      userType: defaultUser.userTypes,
+      firstName: defaultUser.personals?.firstName,
+      lastName: defaultUser.personals?.lastName,
+      pesel: defaultUser.personals?.pesel,
+    },
+  });
 
-  return { adminUserEditFormFunction };
+  return { adminUserEditForm };
 }

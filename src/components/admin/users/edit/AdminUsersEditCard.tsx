@@ -10,7 +10,7 @@ function AdminUsersEditCard(props: { id: string }) {
 
   useEffect(() => {
     user.mutate(props.id);
-  }, []);
+  }, [props.id]);
 
   return (
     <Card>
