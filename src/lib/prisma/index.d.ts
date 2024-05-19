@@ -1,5 +1,8 @@
 import { Prisma } from "@prisma/client";
 import {
+  adminReportsSelect,
+  adminUserSelect,
+  adminUsersSelect,
   browseReportsInclude,
   browseStatisticsInclude,
   usersProfileInclude,
@@ -20,4 +23,16 @@ export type TBrowseReportsInclude = Prisma.reportsGetPayload<{
 
 export type TBrowseStatisticsInclude = Prisma.reportsGetPayload<{
   select: typeof browseStatisticsInclude;
+}>;
+
+export type TAdminUsersSelect = Prisma.usersGetPayload<{
+  include: typeof adminUsersSelect;
+}>;
+
+export type TAdminReportsSelect = Prisma.reportsGetPayload<{
+  include: typeof adminReportsSelect;
+}>;
+
+export type TAdminUserSelect = Prisma.usersGetPayload<{
+  select: typeof adminUserSelect;
 }>;

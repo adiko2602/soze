@@ -31,6 +31,7 @@ export const authOptions: NextAuthOptions = {
           });
 
           if (!user) throw new Error("Nieprawidłowe dane logowania");
+
           if (!(await bcrypt.compare(credentials.password, user.password)))
             throw new Error("Nieprawidłowe dane logowania");
 

@@ -6,7 +6,10 @@ import { CreateReportsValidation } from "@/lib/validators/reports/createReports.
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/nextauth/authOptions";
 
-export async function GET(req: NextRequest) {
+export async function GET() {
+  const session = await getServerSession(authOptions);
+  if (!session?.user.userTypes)
+    return ErrorApiResponse.send("Musisz się zalogować");
   try {
     const reports = await prisma.reports.findMany({
       include: {
@@ -26,7 +29,7 @@ export async function GET(req: NextRequest) {
       },
     });
 
-    return SuccessApiResponse.send("Raporty znalezieni", 200, reports);
+    return SuccessApiResponse.send("Raporty znalezione", 200, reports);
   } catch (err) {
     console.log(err);
     return ErrorApiResponse.send("Błąd pobierania raportów");
@@ -36,6 +39,14 @@ export async function GET(req: NextRequest) {
 }
 
 export async function POST(req: NextRequest) {
+  const session = await getServerSession(authOptions);
+  if (
+    session?.user.userTypes !== "ADMIN" &&
+    session?.user.userTypes !== "WORKER"
+  )
+    return ErrorApiResponse.send(
+      "Musisz się zalogować jako administrator lub pracownik"
+    );
   try {
     const body: TCreateReport = await req.json();
     const result = await CreateReportsValidation.safeParseAsync(body);
