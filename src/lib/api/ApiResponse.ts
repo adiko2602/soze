@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 
-class ApiResponse<T> {
+export class ApiResponse<T> {
   success: boolean;
   message: string;
   status: number;

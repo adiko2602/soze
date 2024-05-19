@@ -26,6 +26,7 @@ model users {
   userTypes userTypes  @default(USER)
   personals personals?
   reports   reports[]
+  createdAt DateTime   @default(now())
 }
 
 model personals {
@@ -48,6 +49,7 @@ model reports {
   addressesId Int       @unique
   diseases    diseases  @relation(fields: [diseasesId], references: [id])
   diseasesId  Int
+  createdAt   DateTime  @default(now())
 }
 
 model addresses {
@@ -56,10 +58,6 @@ model addresses {
   tercId  Int
   simc    simc     @relation(fields: [simcId], references: [id])
   simcId  Int
-  ulic    ulic     @relation(fields: [ulicId], references: [id])
-  ulicId  Int
-  num     String
-  mie     String?
   reports reports?
 }
 
@@ -94,7 +92,7 @@ model simc {
 }
 
 model ulic {
-  id             Int         @id @default(autoincrement())
+  id             Int    @id @default(autoincrement())
   woj            Int
   pow            Int
   gmi            Int
@@ -103,5 +101,4 @@ model ulic {
   characteristic String
   name1          String
   name2          String
-  addresses      addresses[]
 }

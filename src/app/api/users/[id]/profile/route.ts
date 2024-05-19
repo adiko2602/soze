@@ -1,5 +1,6 @@
 import { ErrorApiResponse, SuccessApiResponse } from "@/lib/api/ApiResponse";
 import prisma from "@/lib/prisma/prismaClient";
+import { usersProfileInclude } from "@/lib/prisma/types";
 import { NextRequest } from "next/server";
 
 export async function GET(
@@ -12,13 +13,9 @@ export async function GET(
       where: {
         id: id,
       },
-      select: {
-        email: true,
-        id: true,
-        userTypes: true,
-        personals: true,
-      },
+      select: usersProfileInclude,
     });
+    if (!user) return ErrorApiResponse.send("Nie znaleziono użytkownika");
 
     return SuccessApiResponse.send("Użytkownik znaleziony", 200, user);
   } catch (err) {
