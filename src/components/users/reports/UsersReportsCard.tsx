@@ -12,12 +12,17 @@ import {
 } from "@/components/ui/table";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { useUserReportQuery } from "@/lib/hooks/user/report/useUserReportQuery";
+import CardHeaderLoader from "@/components/ui/card-header-with-loader";
 
 function UsersReportsCard() {
   const { reports } = useUserReportQuery();
   return (
     <Card>
-      <CardHeader>Twoje raporty</CardHeader>
+      <CardHeader>
+        <CardHeaderLoader isLoading={reports.isPending}>
+          Twoje raporty
+        </CardHeaderLoader>
+      </CardHeader>
       <CardContent>
         <Table>
           <TableCaption>Lista twoich raportów</TableCaption>

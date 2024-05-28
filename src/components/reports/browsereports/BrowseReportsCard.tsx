@@ -12,13 +12,18 @@ import {
 } from "@/components/ui/table";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { useBrowseReports } from "@/lib/hooks/report/browseReports/useBrowseReportsQuery";
+import CardHeaderLoader from "@/components/ui/card-header-with-loader";
 
 function BrowseReportsCard() {
   const { reports } = useBrowseReports();
 
   return (
     <Card>
-      <CardHeader>Raporty utworzone przez Ciebie</CardHeader>
+      <CardHeader>
+        <CardHeaderLoader isLoading={reports.isPending}>
+          Raporty utworzone przez Ciebie
+        </CardHeaderLoader>
+      </CardHeader>
       <CardContent>
         <Table>
           <TableCaption>Lista utowrzonych raportów</TableCaption>

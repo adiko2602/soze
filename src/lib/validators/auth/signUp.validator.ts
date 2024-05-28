@@ -57,7 +57,7 @@ export const SignUpValidation = z.object({
 
       const controlNumber = 10 - (sum % 10);
 
-      if (pesel[10] !== controlNumber.toString()) {
+      if (parseInt(pesel[10]) !== controlNumber) {
         ctx.addIssue({
           code: z.ZodIssueCode.custom,
           message: "Nieprawidłowy numer PESEL",

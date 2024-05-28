@@ -39,7 +39,6 @@ function DataTable({
     columns,
     getCoreRowModel: getCoreRowModel(),
     onSortingChange: setSorting,
-    getPaginationRowModel: getPaginationRowModel(),
     getSortedRowModel: getSortedRowModel(),
     onColumnFiltersChange: setColumnFilters,
     getFilteredRowModel: getFilteredRowModel(),

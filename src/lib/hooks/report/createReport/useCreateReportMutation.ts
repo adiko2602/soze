@@ -5,7 +5,7 @@ import { useMutation } from "@tanstack/react-query";
 export function useCreateReportMutation() {
   const createReportMutation = useMutation({
     mutationFn: async (values: TCreateReport) =>
-      await ApiRequest.post("/api/auth", values),
+      await ApiRequest.post("/api/reports", values),
   });
 
   return { createReportMutation };

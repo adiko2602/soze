@@ -1,13 +1,24 @@
+"use client";
+
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import React from "react";
-import AdminReportsTable from "./AdminReportsTable";
+import { useAdminReportQuery } from "@/lib/hooks/admin/report/useAdminReportQuery";
+import CardHeaderLoader from "@/components/ui/card-header-with-loader";
+import DataTable from "./DataTable";
+import { columns } from "./Columns";
 
 function AdminReportsCard() {
+  const { reports } = useAdminReportQuery();
+
   return (
     <Card>
-      <CardHeader>Raporty</CardHeader>
+      <CardHeader>
+        <CardHeaderLoader isLoading={reports.isPending}>
+          Raporty
+        </CardHeaderLoader>
+      </CardHeader>
       <CardContent>
-        <AdminReportsTable />
+        {reports.data && <DataTable columns={columns} data={reports.data} />}
       </CardContent>
     </Card>
   );

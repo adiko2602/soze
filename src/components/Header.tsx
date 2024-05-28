@@ -15,6 +15,8 @@ import {
 } from "./ui/dropdown-menu";
 import { useRouter } from "next/navigation";
 import { HamburgerMenuIcon } from "@radix-ui/react-icons";
+import Image from "next/image";
+import * as sozeLogo from "../../public/sozeLogo.svg";
 
 function Header() {
   const router = useRouter();
@@ -28,9 +30,14 @@ function Header() {
 
   return (
     <div className="flex flex-row justify-between items-center p-4 py-8 border-b">
-      <div className="font-semibold">
-        <Link href="/">SOZE</Link>
-      </div>
+      <Link href="/">
+        <div className="flex flex-row justify-center items-center">
+          <div className="w-[75px] h-[64px] relative">
+            <Image alt="SOZE Logo" src={sozeLogo} priority={true} />
+          </div>
+          <div className="ml-2">SOZE</div>
+        </div>
+      </Link>
       <div>
         {!session && (
           <div className="flex flex-row items-center gap-2">
@@ -69,29 +76,29 @@ function Header() {
                       <DropdownMenuSeparator />
                     </>
                   )}
-                  {session.user.userTypes === "WORKER" ||
-                    (session.user.userTypes === "ADMIN" && (
-                      <>
-                        <DropdownMenuLabel>Obsługa raportów</DropdownMenuLabel>
-                        <DropdownMenuItem
-                          onClick={() => {
-                            router.push("/reports/create");
-                          }}
-                          className="hover:cursor-pointer"
-                        >
-                          Utwórz raport
-                        </DropdownMenuItem>
+                  {(session.user.userTypes === "WORKER" ||
+                    session.user.userTypes === "ADMIN") && (
+                    <>
+                      <DropdownMenuLabel>Obsługa raportów</DropdownMenuLabel>
+                      <DropdownMenuItem
+                        onClick={() => {
+                          router.push("/reports/create");
+                        }}
+                        className="hover:cursor-pointer"
+                      >
+                        Utwórz raport
+                      </DropdownMenuItem>
 
-                        <DropdownMenuItem
-                          onClick={() => {
-                            router.push("/reports/browse");
-                          }}
-                          className="hover:cursor-pointer"
-                        >
-                          Przeglądaj utworzone raporty
-                        </DropdownMenuItem>
-                      </>
-                    ))}
+                      <DropdownMenuItem
+                        onClick={() => {
+                          router.push("/reports/browse");
+                        }}
+                        className="hover:cursor-pointer"
+                      >
+                        Przeglądaj utworzone raporty
+                      </DropdownMenuItem>
+                    </>
+                  )}
                   <DropdownMenuSeparator />
                   <DropdownMenuLabel>Statystyki</DropdownMenuLabel>
                   <DropdownMenuItem
@@ -120,6 +127,7 @@ function Header() {
                   >
                     Raporty
                   </DropdownMenuItem>
+
                   <DropdownMenuSeparator />
                   <DropdownMenuItem
                     className="hover:cursor-pointer"

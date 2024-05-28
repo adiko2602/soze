@@ -27,6 +27,7 @@ import { TCreateReport } from "@/lib/validators";
 import { useAddressQuery } from "@/lib/hooks/address/useAddressQuery";
 import { useAddressMutation } from "@/lib/hooks/address/useAddressMutation";
 import { useDiseseQuery } from "@/lib/hooks/disease/useDiseaseQuery";
+import Loader from "@/components/ui/loader";
 
 function CreateReportForm() {
   const { createReportForm } = useCreateReportForm();
@@ -444,8 +445,12 @@ function CreateReportForm() {
           )}
         />
 
-        <Button type="submit" className="w-full">
-          Wyślij
+        <Button
+          disabled={createReportMutation.isPending}
+          type="submit"
+          className="w-full"
+        >
+          {createReportMutation.isPending && <Loader />} Wyślij
         </Button>
       </form>
     </Form>
