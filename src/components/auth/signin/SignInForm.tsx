@@ -12,10 +12,11 @@ import { Input } from "../../ui/input";
 import { Button } from "../../ui/button";
 import { useSignInForm } from "@/lib/hooks/auth/signIn/useSignInForm";
 import { useSignInMutation } from "@/lib/hooks/auth/signIn/useSignInMutation";
+import Loader from "@/components/ui/loader";
 
 function SignInForm() {
   const { signInForm } = useSignInForm();
-  const { signInMutation } = useSignInMutation();
+  const { signInMutation, loading } = useSignInMutation();
 
   return (
     <Form {...signInForm}>
@@ -50,8 +51,8 @@ function SignInForm() {
           )}
         />
 
-        <Button type="submit" className="w-full">
-          Zaloguj
+        <Button disabled={loading} type="submit" className="w-full">
+          {loading && <Loader />} Zaloguj
         </Button>
       </form>
     </Form>

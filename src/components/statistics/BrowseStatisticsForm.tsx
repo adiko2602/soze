@@ -29,6 +29,7 @@ import { useAddressMutation } from "@/lib/hooks/address/useAddressMutation";
 import { useDiseseQuery } from "@/lib/hooks/disease/useDiseaseQuery";
 import BrowseStatisticsTable from "./BrowseStatisticsTable";
 import { useBrowseStatisticMutation } from "@/lib/hooks/statistic/useBrowseStatisticMutation";
+import Loader from "../ui/loader";
 
 function BrowseStatisticsForm() {
   const { browseStatisticForm } = useBrowseStatisticForm();
@@ -472,8 +473,12 @@ function BrowseStatisticsForm() {
                   />
                 </TableCell>
                 <TableCell>
-                  <Button type="submit" className="w-full">
-                    Pokaż
+                  <Button
+                    disabled={browseStatisticMutation.isPending}
+                    type="submit"
+                    className="w-full"
+                  >
+                    {browseStatisticMutation.isPending && <Loader />} Pokaż
                   </Button>
                 </TableCell>
               </TableRow>

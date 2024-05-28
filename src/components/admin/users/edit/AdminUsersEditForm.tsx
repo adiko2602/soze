@@ -21,6 +21,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import Loader from "@/components/ui/loader";
 
 function AdminUsersEditForm(props: {
   defaultUser: TAdminUserSelect;
@@ -118,8 +119,12 @@ function AdminUsersEditForm(props: {
           )}
         />
 
-        <Button type="submit" className="w-full">
-          Aktualizuj
+        <Button
+          disabled={adminUserEdit.isPending}
+          type="submit"
+          className="w-full"
+        >
+          {adminUserEdit.isPending && <Loader />} Aktualizuj
         </Button>
       </form>
     </Form>

@@ -13,6 +13,7 @@ import { Button } from "../../ui/button";
 import { useSignUpForm } from "@/lib/hooks/auth/signUp/useSignUpForm";
 import { useSignUpMutation } from "@/lib/hooks/auth/signUp/useSignUpMutation";
 import { TSignUp } from "@/lib/validators";
+import Loader from "@/components/ui/loader";
 
 function SignUpForm() {
   const { signUpForm } = useSignUpForm();
@@ -109,8 +110,12 @@ function SignUpForm() {
             </FormItem>
           )}
         />
-        <Button type="submit" className="w-full">
-          Zarejestruj
+        <Button
+          disabled={signUpMutation.isPending}
+          type="submit"
+          className="w-full"
+        >
+          {signUpMutation.isPending && <Loader />} Zarejestruj
         </Button>
       </form>
     </Form>
