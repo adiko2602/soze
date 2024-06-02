@@ -6,6 +6,7 @@ import { useAdminReportQuery } from "@/lib/hooks/admin/report/useAdminReportQuer
 import CardHeaderLoader from "@/components/ui/card-header-with-loader";
 import DataTable from "./DataTable";
 import { columns } from "./Columns";
+import CardHeaderBack from "@/components/ui/card-header-back";
 
 function AdminReportsCard() {
   const { reports } = useAdminReportQuery();
@@ -14,7 +15,7 @@ function AdminReportsCard() {
     <Card>
       <CardHeader>
         <CardHeaderLoader isLoading={reports.isPending}>
-          Raporty
+          <CardHeaderBack>Raporty</CardHeaderBack>
         </CardHeaderLoader>
       </CardHeader>
       <CardContent>

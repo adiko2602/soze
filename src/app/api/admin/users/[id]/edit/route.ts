@@ -3,7 +3,7 @@ import { authOptions } from "@/lib/nextauth/authOptions";
 import prisma from "@/lib/prisma/prismaClient";
 import { TAdminUserEdit } from "@/lib/validators";
 import { AdminUserEditValidation } from "@/lib/validators/admin/adminUserEdit.validator";
-import { userTypes } from "@prisma/client";
+import { userStatuses, userTypes } from "@prisma/client";
 import { getServerSession } from "next-auth";
 import { NextRequest } from "next/server";
 
@@ -38,6 +38,7 @@ export async function PATCH(
       data: {
         email: body.email,
         userTypes: body.userType as userTypes,
+        userStatuses: body.userStatus as userStatuses,
         personals: {
           update: {
             data: {

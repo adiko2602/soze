@@ -5,6 +5,7 @@ import React, { useEffect } from "react";
 import AdminUsersEditForm from "./AdminUsersEditForm";
 import { useAdminUserQuery } from "@/lib/hooks/admin/user/useAdminUserQuery";
 import CardHeaderLoader from "@/components/ui/card-header-with-loader";
+import CardHeaderBack from "@/components/ui/card-header-back";
 
 function AdminUsersEditCard(props: { id: string }) {
   const { user } = useAdminUserQuery();
@@ -17,7 +18,7 @@ function AdminUsersEditCard(props: { id: string }) {
     <Card>
       <CardHeader>
         <CardHeaderLoader isLoading={user.isPending}>
-          Edytuj dane użytkownika
+          <CardHeaderBack>Edytuj dane użytkownika</CardHeaderBack>
         </CardHeaderLoader>
       </CardHeader>
       <CardContent>

@@ -1,6 +1,7 @@
 "use client";
 
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import CardHeaderBack from "@/components/ui/card-header-back";
 import CardHeaderLoader from "@/components/ui/card-header-with-loader";
 import { Input } from "@/components/ui/input";
 import { useUserProfileQuery } from "@/lib/hooks/user/profile/useUserProfileQuery";
@@ -13,7 +14,7 @@ function UsersProfileCard() {
     <Card>
       <CardHeader>
         <CardHeaderLoader isLoading={profile.isPending}>
-          Twój profil
+          <CardHeaderBack>Twój profil</CardHeaderBack>
         </CardHeaderLoader>
       </CardHeader>
       <CardContent>
