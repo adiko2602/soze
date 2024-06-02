@@ -44,6 +44,10 @@ export const columns: ColumnDef<TAdminUsersSelect>[] = [
     header: "Typ użytkownika",
   },
   {
+    accessorKey: "userStatuses",
+    header: "Status użytkownika",
+  },
+  {
     accessorKey: "createdAt",
     header: "Utworzony",
   },

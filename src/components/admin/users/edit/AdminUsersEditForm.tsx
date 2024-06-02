@@ -119,6 +119,28 @@ function AdminUsersEditForm(props: {
           )}
         />
 
+        <FormField
+          control={adminUserEditForm.control}
+          name="userStatus"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Status użytkownika</FormLabel>
+              <Select onValueChange={field.onChange} defaultValue={field.value}>
+                <FormControl>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Wybierz status użytkownika" />
+                  </SelectTrigger>
+                </FormControl>
+                <SelectContent>
+                  <SelectItem value="ACTIVE">ACTIVE</SelectItem>
+                  <SelectItem value="NOT_ACTIVE">NOT_ACTIVE</SelectItem>
+                </SelectContent>
+              </Select>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
         <Button
           disabled={adminUserEdit.isPending}
           type="submit"

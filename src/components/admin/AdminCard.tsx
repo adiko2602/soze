@@ -2,11 +2,14 @@ import React from "react";
 import { Card, CardContent, CardHeader } from "../ui/card";
 import Link from "next/link";
 import { Button } from "../ui/button";
+import CardHeaderBack from "../ui/card-header-back";
 
 function AdminCard() {
   return (
     <Card>
-      <CardHeader>Panel administratora</CardHeader>
+      <CardHeader>
+        <CardHeaderBack>Panel administratora</CardHeaderBack>
+      </CardHeader>
       <CardContent className="flex flex-row justify-evenly gap-4">
         <Card className="w-full">
           <CardHeader>Użytkownicy</CardHeader>

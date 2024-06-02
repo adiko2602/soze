@@ -13,6 +13,7 @@ import {
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { useUserReportQuery } from "@/lib/hooks/user/report/useUserReportQuery";
 import CardHeaderLoader from "@/components/ui/card-header-with-loader";
+import CardHeaderBack from "@/components/ui/card-header-back";
 
 function UsersReportsCard() {
   const { reports } = useUserReportQuery();
@@ -20,7 +21,7 @@ function UsersReportsCard() {
     <Card>
       <CardHeader>
         <CardHeaderLoader isLoading={reports.isPending}>
-          Twoje raporty
+          <CardHeaderBack>Twoje raporty</CardHeaderBack>
         </CardHeaderLoader>
       </CardHeader>
       <CardContent>

@@ -53,6 +53,7 @@ export const adminUsersSelect = Prisma.validator<Prisma.usersSelect>()({
   id: true,
   userTypes: true,
   personals: true,
+  userStatuses: true,
 });
 
 export const adminReportsSelect = Prisma.validator<Prisma.reportsSelect>()({
@@ -88,4 +89,5 @@ export const adminUserSelect = Prisma.validator<Prisma.usersSelect>()({
   password: false,
   createdAt: true,
   personals: true,
+  userStatuses: true,
 });

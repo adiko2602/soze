@@ -35,6 +35,9 @@ export const authOptions: NextAuthOptions = {
           if (!(await bcrypt.compare(credentials.password, user.password)))
             throw new Error("Nieprawidłowe dane logowania");
 
+          if (user.userStatuses === "NOT_ACTIVE")
+            throw new Error("Konto jest nieaktywne");
+
           return {
             id: user.id,
             email: user.email,

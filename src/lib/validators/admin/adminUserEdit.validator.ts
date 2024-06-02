@@ -51,4 +51,7 @@ export const AdminUserEditValidation = z.object({
   userType: z
     .string({ required_error: "Typ użytkownika jest wymagane" })
     .min(1, { message: "Typ użytkownika nie może być puste" }),
+  userStatus: z
+    .string({ required_error: "Status użytkownika jest wymagany" })
+    .min(1, { message: "Status użytkownika nie może być pusty" }),
 });

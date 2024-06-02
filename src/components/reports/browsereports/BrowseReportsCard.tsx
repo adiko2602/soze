@@ -13,6 +13,7 @@ import {
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { useBrowseReports } from "@/lib/hooks/report/browseReports/useBrowseReportsQuery";
 import CardHeaderLoader from "@/components/ui/card-header-with-loader";
+import CardHeaderBack from "@/components/ui/card-header-back";
 
 function BrowseReportsCard() {
   const { reports } = useBrowseReports();
@@ -21,7 +22,7 @@ function BrowseReportsCard() {
     <Card>
       <CardHeader>
         <CardHeaderLoader isLoading={reports.isPending}>
-          Raporty utworzone przez Ciebie
+          <CardHeaderBack>Raporty utworzone przez Ciebie</CardHeaderBack>
         </CardHeaderLoader>
       </CardHeader>
       <CardContent>

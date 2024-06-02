@@ -16,6 +16,7 @@ export function useAdminUserForm(defaultUser: TAdminUserSelect) {
       firstName: defaultUser.personals?.firstName,
       lastName: defaultUser.personals?.lastName,
       pesel: defaultUser.personals?.pesel,
+      userStatus: defaultUser.userStatuses,
     },
   });
 

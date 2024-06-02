@@ -6,6 +6,7 @@ import { useAdminUserQuery } from "@/lib/hooks/admin/user/useAdminUserQuery";
 import DataTable from "./DataTable";
 import { columns } from "./Columns";
 import CardHeaderLoader from "@/components/ui/card-header-with-loader";
+import CardHeaderBack from "@/components/ui/card-header-back";
 
 function AdminUsersCard() {
   const { users } = useAdminUserQuery();
@@ -14,7 +15,7 @@ function AdminUsersCard() {
     <Card>
       <CardHeader>
         <CardHeaderLoader isLoading={users.isPending}>
-          Użytkownicy
+          <CardHeaderBack>Użytkownicy</CardHeaderBack>
         </CardHeaderLoader>
       </CardHeader>
       <CardContent>

@@ -1,11 +1,14 @@
 import React from "react";
 import { Card, CardContent, CardHeader } from "../ui/card";
 import BrowseStatisticsForm from "./BrowseStatisticsForm";
+import CardHeaderBack from "../ui/card-header-back";
 
 function BrowseStatisticsCard() {
   return (
     <Card>
-      <CardHeader>Statystyki</CardHeader>
+      <CardHeader>
+        <CardHeaderBack>Statystyki</CardHeaderBack>
+      </CardHeader>
       <CardContent>
         <BrowseStatisticsForm />
       </CardContent>
